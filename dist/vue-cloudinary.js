@@ -51,11 +51,11 @@
     if (options.responsive === '' || options.responsive === 'true' || options.responsive === true) {
       options.responsive = true;
     }
-    const url = cloudinary.url(value, options);
+    const url = cloudinaryInstance.url(value, options);
     if (options.responsive) {
-      cloudinary.Util.setData(el, 'src', url);
-      cloudinary.cloudinary_update(el, options);
-      cloudinary.responsive(options, false);
+      cloudinaryInstance.Util.setData(el, 'src', url);
+      cloudinaryInstance.cloudinary_update(el, options);
+      cloudinaryInstance.responsive(options, false);
     } else {
       el.setAttribute('src', url);
     }
