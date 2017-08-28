@@ -28,12 +28,12 @@
     var attributes = {};
     var isNamedNodeMap;
     if (window.NamedNodeMap) {
-      isNamedNodeMap = source && (source.constructor.name === "NamedNodeMap" || source instanceof NamedNodeMap);
+      isNamedNodeMap = source && (source.constructor.name === 'NamedNodeMap' || source instanceof NamedNodeMap);
     } else if (window.MozNamedAttrMap) {
       // https://developer.mozilla.org/en-US/docs/Web/API/NamedNodeMap
       // https://www.fxsitecompat.com/en-CA/docs/2013/namednodemap-has-been-renamed-to-moznamedattrmap/
       // In Firefox versions 22 - 33 the interface "NamedNodeMap" was called "MozNamedAttrMap"
-      isNamedNodeMap = source && (source.constructor.name === "MozNamedAttrMap" || source instanceof MozNamedAttrMap);
+      isNamedNodeMap = source && (source.constructor.name === 'MozNamedAttrMap' || source instanceof MozNamedAttrMap);
     }
     source.forEach(function(value, name){
       if( isNamedNodeMap) {

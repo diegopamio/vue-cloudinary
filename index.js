@@ -48,12 +48,12 @@ const toCloudinaryAttributes = function( source, filter) {
 
 const clImage = {
   inserted: function(el, binding) {
-    el.setAttribute('src', cloudinaryInstance.url(binding.value.publicId));
+    el.setAttribute('src', cloudinaryInstance.url(binding.value.publicId, toCloudinaryAttributes(el.attributes)));
 
   },
 
   componentUpdated: function(el, binding) {
-    el.setAttribute('src', cloudinaryInstance.url(binding.value.publicId), toCloudinaryAttributes(el.attributes));
+    el.setAttribute('src', cloudinaryInstance.url(binding.value.publicId, toCloudinaryAttributes(el.attributes)));
   },
 };
 
