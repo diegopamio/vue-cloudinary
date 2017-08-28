@@ -45,15 +45,40 @@ const toCloudinaryAttributes = function( source, filter) {
   return attributes;
 };
 
+const loadImage = function(el, value, options) {
+  if (options.responsive === '' || options.responsive === 'true' || options.responsive === true) {
+    options.responsive = true;
+  }
+  const url = cloudinary.url(value, options);
+  if (options.responsive) {
+    cloudinary.Util.setData(el, 'src', url);
+    cloudinary.cloudinary_update(el, options);
+    cloudinary.responsive(options, false);
+  } else {
+    el.setAttribute('src', url);
+  }
+};
 
 const clImage = {
   inserted: function(el, binding) {
-    el.setAttribute('src', cloudinaryInstance.url(binding.value.publicId, toCloudinaryAttributes(el.attributes)));
+    let options = toCloudinaryAttributes(el.attributes);
 
+    if (el.attributes.htmlWidth) {
+      el.setAttribute('width', el.attributes.htmlWidth);
+    } else {
+      el.removeAttribute('width');
+    }
+    if (el.attributes.htmlHeight) {
+      el.setAttribute('height', el.attributes.htmlHeight);
+    } else {
+      el.removeAttribute('height');
+    }
+    loadImage(el, binding.value, options);
   },
 
   componentUpdated: function(el, binding) {
-    el.setAttribute('src', cloudinaryInstance.url(binding.value.publicId, toCloudinaryAttributes(el.attributes)));
+    let options = toCloudinaryAttributes(el.attributes);
+    loadImage(el, binding.value, options);
   },
 };
 

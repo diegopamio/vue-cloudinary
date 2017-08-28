@@ -38,27 +38,19 @@ Vue.use(VueCloudinary, {
   ... (*)
 });
 
-new Vue({
-  el: '#example1',
-  data: {
-    shown: true,
-    exampleImage1: {
-        publicId: 'lg82vjkqbg9f3fzrqem6'
-    }
-  },
-});
-
-```
-
-index.html
-```html
-<div id="example1">
-    <img v-cl-image="exampleImage1"></p>
-</div>
 ```
 
 (*) See [cloudinary documentation](http://cloudinary.com/documentation/rails_additional_topics#configuration_options) for a complete list of the options available. 
 
+index.html
+```html
+<div id="example1">
+    <img v-cl-image="my_logo" width="auto" responsive fetch_format="auto" quality="auto"></p>
+</div>
+```
+Further image manipulation options are listed in [this reference](http://cloudinary.com/documentation/image_transformations#reference).
+
+Note that the attribute names in the docs are using snake_case, however this SDK supports both snake_case and kebab-case for attribute names, e.g. both fetch_format: 'auto' and 'fetch-format': 'auto' are eventually translated to f_auto.
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
