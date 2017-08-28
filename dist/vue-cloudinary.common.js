@@ -5,16 +5,16 @@ Vue = 'default' in Vue ? Vue['default'] : Vue;
 var cloudinary = require('cloudinary-core');
 cloudinary = 'default' in cloudinary ? cloudinary['default'] : cloudinary;
 
-var version = '0.1.0';
-var configuration;
-var cloudinaryInstance;
+const version = '0.1.0';
+let configuration;
+let cloudinaryInstance;
 
-var compatible = (/^2\./).test(Vue.version);
+const compatible = (/^2\./).test(Vue.version);
 if (!compatible) {
   Vue.util.warn('CloudinaryImage ' + version + ' only supports Vue 2.x, and does not support Vue ' + Vue.version);
 }
 
-var cloudinaryAttr = function(attr){
+const cloudinaryAttr = function(attr){
   if (attr.match(/cl[A-Z]/)) attr = attr.substring(2);
   return attr.replace(/([a-z])([A-Z])/g,'$1_$2').toLowerCase();
 };
@@ -26,7 +26,7 @@ var cloudinaryAttr = function(attr){
  * @param {(RegExp|string)} [filter] - copy only attributes whose name matches the filter
  * @return {Object} attributes for cloudinary functions
  */
-var toCloudinaryAttributes = function( source, filter) {
+const toCloudinaryAttributes = function( source, filter) {
   var attributes = {};
   var isNamedNodeMap;
   if (window.NamedNodeMap) {
@@ -37,7 +37,7 @@ var toCloudinaryAttributes = function( source, filter) {
     // In Firefox versions 22 - 33 the interface "NamedNodeMap" was called "MozNamedAttrMap"
     isNamedNodeMap = source && (source.constructor.name === "MozNamedAttrMap" || source instanceof MozNamedAttrMap);
   }
-  source.forEach(function(value, name){
+  Array.prototype.forEach.call(source, function(value, name){
     if( isNamedNodeMap) {
       name = value.name;
       value = value.value;
@@ -50,23 +50,16 @@ var toCloudinaryAttributes = function( source, filter) {
 };
 
 
-var clImage = {
+const clImage = {
   inserted: function(el, binding) {
-    el.setAttribute('src', cloudinaryInstance.url(binding.value.publicId));
+    el.setAttribute('src', cloudinaryInstance.url(binding.value.publicId, toCloudinaryAttributes(el.attributes)));
 
   },
 
   componentUpdated: function(el, binding) {
-    el.setAttribute('src', cloudinaryInstance.url(binding.value.publicId), toCloudinaryAttributes(el.attributes));
+    el.setAttribute('src', cloudinaryInstance.url(binding.value.publicId, toCloudinaryAttributes(el.attributes)));
   },
 };
-
-// export var mixin = {
-//   directives: {
-//     clImage: clImage,
-//   },
-// };
-
 
 function install(Vue, options) {
   configuration = new cloudinary.Configuration(options);
