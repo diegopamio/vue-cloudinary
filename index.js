@@ -33,7 +33,7 @@ const toCloudinaryAttributes = function( source, filter) {
     // In Firefox versions 22 - 33 the interface "NamedNodeMap" was called "MozNamedAttrMap"
     isNamedNodeMap = source && (source.constructor.name === "MozNamedAttrMap" || source instanceof MozNamedAttrMap);
   }
-  source.forEach(function(value, name){
+  Array.prototype.forEach.call(source, function(value, name){
     if( isNamedNodeMap) {
       name = value.name;
       value = value.value;
