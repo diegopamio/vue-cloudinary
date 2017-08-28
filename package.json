@@ -1,7 +1,7 @@
 {
   "name": "vue-cloudinary",
   "description": "A plugin that adds cl-image directive to Vue.js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Diego Pamio <diego.pamio@gmail.com>",
   "browserify": {
     "transform": [
