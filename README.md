@@ -40,7 +40,7 @@ Vue.use(VueCloudinary, {
 
 ```
 
-(*) See [cloudinary documentation](http://cloudinary.com/documentation/rails_additional_topics#configuration_options) for a complete list of the options available. 
+(*) See [cloudinary documentation](https://cloudinary.com/documentation/solution_overview#configuration_parameters) for a complete list of the options available. 
 
 index.html
 ```html
